@@ -74,12 +74,10 @@ class AnswerFromUser(APIView):
             current_count_response = UserSurvey.objects.filter(id_survey=survey_id,
                                                                id_user=user_id).values_list('current_count_responses',
                                                                                             flat=True)[0]
-            print(total_responses)
-            print(current_count_response)
 
             if type_answer == 'One':
                 user_answer = request.data.get('answer_id')
-
+                # Создаем ответ пользователя и добавляем туда id опроса, юзера, вопроса и ответа
                 user_responses = UserResponses.objects.create()
                 user_responses.save()
                 user_responses.id_question.add(get_object_or_404(Question, id=pk))
@@ -98,7 +96,7 @@ class AnswerFromUser(APIView):
 
             if type_answer == 'Text':
                 user_text = request.data.get('text')
-
+                # Создаем ответ пользователя и добавляем туда id опроса, юзера, вопроса и ответа текстом
                 user_responses = UserResponses.objects.create()
                 user_responses.save()
                 user_responses.id_question.add(get_object_or_404(Question, id=pk))
@@ -117,7 +115,7 @@ class AnswerFromUser(APIView):
 
             if type_answer == 'Many':
                 user_answers = request.data.get('answer_id')
-
+                # Создаем ответ пользователя и добавляем туда id опроса, юзера, вопроса и ответа
                 user_responses = UserResponses.objects.create()
                 user_responses.save()
                 user_responses.id_question.add(get_object_or_404(Question, id=pk))
